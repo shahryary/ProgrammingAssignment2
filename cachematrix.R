@@ -1,4 +1,4 @@
-# Peer Graded Assignment: Programming Assignment 2: Lexical Scoping
+# Peer Graded Assignment: Programming Assignment 2: Caching the Inverse of a Matrix
 
 ## This code is my solution to second assignments from the R programming on Coursera.
 
@@ -65,3 +65,47 @@ cacheSolve <- function(x, ...) {
   
   return(inverse)
 }
+
+
+## Unit Test:
+## Now we can write unit test to get diffrence time in inverse matrix that calculated
+## and cachesolve that retrieved the inverse from the cache.
+
+testfunction = function(matrix){
+  ## @matrix: an invertible matrix
+  
+  temp = makeCacheMatrix(matrix)
+  
+  start.time = Sys.time()
+  cacheSolve(temp)
+  duration = Sys.time() - start.time
+  print(duration)
+  
+  start.time = Sys.time()
+  cacheSolve(temp)
+  duration = Sys.time() - start.time
+  print(duration)
+}
+
+# the results 
+set.seed(136429)
+# creating randome number 
+r = rnorm(1000000)
+# creating matrix
+mat = matrix(r, nrow=1000, ncol=1000)
+# passing to testfunction
+testfunction(mat)
+
+
+## The result in my system like this(the results depends on your system!):
+
+
+# Time difference of 3.468957 secs
+# Getting cached data
+# Time difference of 0.0003330708 secs
+
+## As you see in the results retrieving from cache ~ 99% decrease results.
+## you can test it for large matrix! but be careful when you are creaitng large randome number!
+
+
+
